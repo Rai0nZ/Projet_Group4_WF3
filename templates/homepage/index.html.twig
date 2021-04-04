@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil | {{ parent() }} {% endblock %}
 {% block style %}<link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">{% endblock %}
 
 {% block body %}
