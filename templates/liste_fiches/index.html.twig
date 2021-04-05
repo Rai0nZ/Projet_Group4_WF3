@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Fiches| {{ parent() }}{% endblock %}
+
+{% block body %}
+<h2>Pour l'instant y'a rien :)</h2>
+
+<div style="display: flex;">
+    {% for f in fiches %}
+        <div style="display: inline-block; width: 30%;">
+            <!-- <img src="{{asset('img/articles/' ~ a.image)}}" alt="Avatar" style="width:100%"> -->
+            <div class="container fiches">
+                <h4>{{f.Discipline}}</h4>
+                <h4>{{f.niveau}}</h4>
+                <h4>{{f.nom}}</h4>
+                <h4>{{f.Chapitre}}</h4>
+                <p>{{f.Formules}}</p>
+                <p>{{f.concept_clé}}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>Il n'y a aucune fiches à afficher.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
