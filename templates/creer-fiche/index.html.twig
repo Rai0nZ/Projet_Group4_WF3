@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer votre fiche ! {% endblock %}
+
+{% block body %}
+<form>
+    <div class="form-group">
+        {{ form( form, { 'action': path('creer_fiche') } ) }}
+    </div>
+
+</form>
+
+{% endblock %}
