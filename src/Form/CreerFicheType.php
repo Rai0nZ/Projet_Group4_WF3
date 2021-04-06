@@ -24,9 +24,9 @@ class CreerFicheType extends AbstractType
             ->add('Formules', TextareaType::class)
             ->add('A_retenir', TextareaType::class)
             ->add('Auteur', TextType::class)
-            ->add('Soumettre', SubmitType::class);
+            ->add('Enregistrer_en_brouillon', SubmitType::class)
+            ->add('Publier', SubmitType::class);
     }
-
 
 
     public function configureOptions(OptionsResolver $resolver)

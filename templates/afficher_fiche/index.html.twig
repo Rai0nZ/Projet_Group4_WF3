@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AfficherFicheController!{% endblock %}
+
+{% block body %}
+	<article class="ficheType">
+		<h5>Programme {{fiche.discipline}} - {{fiche.niveau}}</h5>
+		<h5>{{fiche.programme}}, {{fiche.chapitre}} </h5>
+		<p>{{fiche.concept_cle}}</p>
+		<h5>Formule(s)</h5>
+		<p>{{fiche.formule}}</p>
+		<h5>A retenir</h5>
+		<p>{{fiche.a_retenir}}</p>
+	</article>
+{% endblock %}
