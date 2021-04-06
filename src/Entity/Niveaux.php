@@ -51,6 +51,11 @@ class Niveaux
         return $this;
     }
 
+    public function __toString()
+    {
+        return (string)$this->getNiveauxClasse();
+    }
+
     /**
      * @return Collection|Fiches[]
      */

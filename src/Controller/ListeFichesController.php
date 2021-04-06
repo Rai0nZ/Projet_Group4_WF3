@@ -15,7 +15,7 @@ class ListeFichesController extends AbstractController
      */
     public function listeFiches(): Response {
         $repository = $this->getDoctrine()->getRepository(Fiches::class);
-        $fiches = $repository->findAll($id, $auteur);
+        $fiches = $repository->findAll($Auteur);
 
         return $this->render('liste_fiches/index.html.twig', [
             'fiches' => $fiches

@@ -16,40 +16,20 @@ class CreerFicheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('niveau', ChoiceType::class, [
-                'choices' => [
-                    '6ème' => null,
-                    '5ème' => null,
-                    '4ème' => null,
-                    '3ème' => null,
-                    '2nd' => null,
-                    'Première' => null,
-                    'Terminale' => null,
-                ]
-            ])
-            ->add('Discipline', ChoiceType::class, [
-                'choices' => [
-                    'Mathématique' => null,
-                    'Français' => null,
-                    'Histoire' => null,
-                    'Géographie' => null,
-                    'Physique' => null,
-                    'Chimie' => null,
-                    'SVT' => null,
-                    'Arts' => null,
-                    'Musique' => null,
-                    'Sport' => null,
-                ]
-            ])
-            ->add('Chapitre', TextType::class)
-            ->add('nom', TextType::class, [
-                'label' => 'Titre de la fiche',])
-            ->add('concept_cle', TextareaType::class)
-            ->add('Formules', TextareaType::class)
-            ->add('A_retenir', TextareaType::class)
-            ->add('Auteur', TextType::class)
-            ->add('Enregistrer_en_brouillon', SubmitType::class)
-            ->add('Publier', SubmitType::class);
+        ->add('niveau', EntityType::class,[
+            'class'=> Niveaux::class,
+        ])
+        ->add('Discipline', EntityType::class,[
+            'class'=> Disciplines::class,
+        ])
+        ->add('Chapitre')
+        ->add('nom', TextType::class, [
+            'label' => 'Titre de la fiche',])
+        ->add('concept_cle', TextareaType::class)
+        ->add('Formules', TextareaType::class)
+        ->add('A_retenir', TextareaType::class)
+        ->add('Auteur')
+        ->add('Soumettre', SubmitType::class);
     }
 
 

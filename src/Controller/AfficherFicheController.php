@@ -16,7 +16,7 @@ class AfficherFicheController extends AbstractController
     public function afficherUneFiche(): Response {
 
         $repository = $this->getDoctrine()->getRepository(Fiches::class);
-        $fiche = $repository->find($id);
+        $fiche = $repository->find($Auteur);
 
         if (empty($fiche)) throw new NotFoundHttpException();
 
