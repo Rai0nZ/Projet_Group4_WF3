@@ -1,0 +1,37 @@
+// Première Partie du Main "Titre Liste des Fiches" 
+main
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    h2
+    {
+        text-align: center;
+    }
+}
+
+// Fiches =============================
+// rgb(45, 156, 219) Bleu
+// #F2994A Orange
+
+.Fiches
+{
+    background-color: rgb(45, 156, 219);
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    border: black 4px solid;
+    margin: 1rem;
+    p:hover
+    {
+       color: beige;
+    }
+    
+    // deuxieme partie des Titres des Fiches
+    h4
+    {
+        color: white;
+    }
+}

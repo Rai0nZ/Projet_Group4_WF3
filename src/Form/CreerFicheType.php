@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Disciplines;
 use App\Entity\Fiches;
+use App\Entity\Niveaux;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -15,15 +18,19 @@ class CreerFicheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('niveau', TextType::class)
-            ->add('Discipline', TextType::class)
-            ->add('Chapitre', TextType::class)
+            ->add('niveau', EntityType::class,[
+                'class'=> Niveaux::class,
+            ])
+            ->add('Discipline', EntityType::class,[
+                'class'=> Disciplines::class,
+            ])
+            ->add('Chapitre')
             ->add('nom', TextType::class, [
                 'label' => 'Titre de la fiche',])
             ->add('concept_cle', TextareaType::class)
             ->add('Formules', TextareaType::class)
             ->add('A_retenir', TextareaType::class)
-            ->add('Auteur', TextType::class)
+            ->add('Auteur')
             ->add('Soumettre', SubmitType::class);
     }
 

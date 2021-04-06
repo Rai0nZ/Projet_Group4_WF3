@@ -3,11 +3,8 @@
 {% block title %}Créer votre fiche ! {% endblock %}
 
 {% block body %}
-<form>
-    <div class="form-group">
+    <div class="container">
         {{ form( form, { 'action': path('creer_fiche') } ) }}
     </div>
-
-</form>
 
 {% endblock %}
