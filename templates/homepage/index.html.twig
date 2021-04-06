@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil | {{ parent() }} {% endblock %}
+{% block style %}<link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">{% endblock %}
+
+{% block body %}
+ <main>
+
+        <div class="jumbotron m-5 box font-weight-light">
+            <h1>EducOfiche, la plateforme au service du soutien scolaire</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ratione velit exercitationem fuga?
+                Eaque quibusdam possimus facilis et? Non delectus ullam iusto explicabo ut optio asperiores possimus
+                commodi incidunt fuga. orem ipsum dolor sit amet, consectetur adipisicing elit. Laborum unde rem possimus mollitia maxime
+                reiciendis minus nisi dolorem hic velit quis inventore cupiditate natus,</p>
+        </div>
+
+        <section class="exempleFiche">
+        <div class="sectionCercle">
+            <div class="cercle">1</div>
+            <p class="programme">Choisis ton niveau scolaire</p>
+            <div class="cercle">2</div>
+            <p class="programme">Choisis ta matière</p>
+            <div class="cercle">3</div>
+            <p class="programme">Choisis ton chapitre</p>
+            <div class="cercle">4</div>
+            <p class="programme">Accède à la fiche qui a réçu le plus de like et qui est faite par des profs</p>
+        </div>
+            <article class="ficheType">
+                <h5>Programme Math - 4ème</h5>
+                <h5>Théorème de pythagore</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam ante a pretium porta. Vestibulum est odio, sollicitudin vitae libero nec, suscipit tempor sem. Maecenas id molestie nulla. Duis pharetra augue quis elit venenatis. Phasellus ut.</p>
+                <h5>Formule</h5>
+                <p>Si un triangle ABC est rectangle en C, alors AB2 = AC2 + BC2. Avec les notations usuelles AB = c, AC = b et BC = a (cf. figure ci-dessous), la formule s'écrit encore : a2 + b2 = c2.</p>
+                <h5>A retenir</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed ligula condimentum.</p>
+            </article>
+        </section>
+
+
+        <div class="card-group w-auto d-flex flex-row justify-content-center m-5 box">
+            <div class="card">
+                <img class="card-img-top" src="{{ asset ('img/infoReforme.png')}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Bac 2021</h5>
+                    <p class="card-text">Texte long. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+                        tenetur ad quidem explicabo dicta perspiciatis similique debitis ut, iure modi vel quas non
+                        facere !</p>
+                </div>
+                <div class="card-footer">
+                    <small>Posté il y a 3 minutes</small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="{{ asset ('img/infoReforme.png')}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">La réforme des rythmes scolaire</h5>
+                    <p class="card-text">Texte plus court. Lorem ipsum debitis ut, iure modi vel quas non facere vero
+                        ab, recusandae inventore numquam qui!</p>
+                </div>
+                <div class="card-footer">
+                    <small>Posté il y a 4 jours</small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="{{ asset ('img/infoReforme.png')}}" alt="en-tête de la card">
+                <div class="card-body">
+                    <h5 class="card-title">L'école vu de l'intérieur</h5>
+                    <p class="card-text">Texte plus long. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Nesciunt tenetur ad quidem explicabo dicta perspiciatis similique debitis ut, iure modi vel quas
+                        non facere vero ab.</p>
+                </div>
+                <div class="card-footer">
+                    <small>Posté il y a 1 semaine</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}

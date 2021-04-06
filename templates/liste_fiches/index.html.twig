@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Fiches| {{ parent() }}{% endblock %}
+{% block style %}<link rel="stylesheet" href="{{asset('css/Liste_Fiches/styles.css')}}">{% endblock %}
+{% block body %}
+<main class"container">
+<h2>Liste Des Fiches</h2>
+
+<div class="container Fiches">
+    {% for f in fiches %}
+        <div style="display: inline-block; width: 30%;">
+            <div class="container">
+                <h3>{{f.Discipline}}</h3>
+                <h3>{{f.niveau}}</h3>
+                <br>
+                <hr>
+                <br>
+                <h4>{{f.nom}}</h4>
+                <br>
+                <h4>{{f.Chapitre}}</h4>
+                <br>
+                <p>{{f.Formules}}</p>
+                <br>
+                <p>{{f.Conceptcle}}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>Il n'y a aucune fiches à afficher.</p>
+    {% endfor %}
+    </main>
+</div>
+
+{% endblock %}

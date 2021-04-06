@@ -54,6 +54,11 @@ class Fiches
      */
     private $Discipline;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Auteur;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +144,18 @@ class Fiches
     public function setDiscipline(?Disciplines $Discipline): self
     {
         $this->Discipline = $Discipline;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?string
+    {
+        return $this->Auteur;
+    }
+
+    public function setAuteur(string $Auteur): self
+    {
+        $this->Auteur = $Auteur;
 
         return $this;
     }

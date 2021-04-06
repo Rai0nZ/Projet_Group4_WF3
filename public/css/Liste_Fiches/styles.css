@@ -1,0 +1,26 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main h2 {
+  text-align: center;
+}
+
+.Fiches {
+  background-color: #2d9cdb;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  border: black 4px solid;
+  margin: 1rem;
+}
+.Fiches p:hover {
+  color: beige;
+}
+.Fiches h4 {
+  color: white;
+}
+
+/*# sourceMappingURL=styles.css.map */
