@@ -32,7 +32,7 @@ class CreerFicheController extends AbstractController {
         $em->persist($creerFiche);
         $em->flush();
 
-        // return $this->redirect('/fiche/' . $creerFiche->getId());
+        return $this->redirect('/afficher_fiche/' . $creerFiche->getId());
 
     }
 }

@@ -7,17 +7,17 @@
 {% for f in fiches %}
 
 <tr>
-    <!-- <td>{{ f.id.autheur }}</td> -->
+    <td>{{ f.id }}</td>
     <td>
-        <!-- <a href="{{ path('LIEN VERS LA FICHE', {'id': f.id.autheur}) }}" title="Voir cette fiche">{{ f.titre }}</a> -->
+        <a href="{{ path('afficher_fiche', {'id': f.id}) }}" title="Voir cette fiche">{{ f.titre }}</a>
     </td>
     <td>{{ a.date|date('d/m/Y') }}</td>
 
     <td>
-        <a href="{{ path('modifier_article', {'id': a.id}) }}" title="Modifier cet article" class="btn btn-primary">
+        <a href="{{ path('modifier_fiche', {'id': f.id}) }}" title="Modifier cette fiche" class="btn btn-primary">
             <i class="fas fa-edit"></i>
         </a>
-        <a href="{{ path( 'supprimer_article', {'id': a.id} ) }}" title="Supprimer cet article" class="btn btn-danger"
+        <a href="{{ path( 'supprimer_fiche', {'id': f.id} ) }}" title="Supprimer cette fiche" class="btn btn-danger"
             onclick="return confirm('Êtes-vous sûr ?')">
             <i class="fas fa-trash"></i>
         </a>
