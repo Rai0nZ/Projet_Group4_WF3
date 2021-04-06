@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block style %}<link rel="stylesheet" href="{{asset('css/Mes-fiches/style.css')}}">{% endblock %}
+
 {% block title %}Mes fiches{% endblock %}
 
 {% block body %}
@@ -7,22 +9,22 @@
 {% for f in fiches %}
 
 <tr>
-    <td>{{ f.id }}</td>
-    <td>
-        <a href="{{ path('afficher_fiche', {'id': f.id}) }}" title="Voir cette fiche">{{ f.titre }}</a>
-    </td>
-    <td>{{ a.date|date('d/m/Y') }}</td>
+    <div class="mes-fiches">
+        <a href="{{ path('afficher_fiche', {'auteur': f.auteur}) }}" title="Voir cette fiche">{{ f.nom }} </br> {{ f.niveau }} {{ f.Discipline }} </a>
+    
+    {# <td>{{ a.date|date('d/m/Y') }}</td> #}
 
-    <td>
-        <a href="{{ path('modifier_fiche', {'id': f.id}) }}" title="Modifier cette fiche" class="btn btn-primary">
+    {# <td>
+        <a href="{{ path('modifier_fiche', {'id': f.auteur}) }}" title="Modifier cette fiche" class="btn btn-primary">
             <i class="fas fa-edit"></i>
         </a>
         <a href="{{ path( 'supprimer_fiche', {'id': f.id} ) }}" title="Supprimer cette fiche" class="btn btn-danger"
             onclick="return confirm('Êtes-vous sûr ?')">
             <i class="fas fa-trash"></i>
         </a>
-    </td>
-</tr>
+    </td> #}
+
+</div>
 {% else %}
 <tr>Il n'y a aucune fiche à afficher.</tr>
 {% endfor %}

@@ -15,11 +15,15 @@ class MesFichesController extends AbstractController
     public function voirMesFiches(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Fiches::class);
-        // $fiches = $repository->findAll($autheur);
+        $fiches = $repository->findBy([
+            'Auteur' => "Sabrina Tht"
+        ]);
 
         return $this->render('mes_fiches/index.html.twig', [
-            // 'mesFiches' => $fiches
-        ]);
-    
+            'fiches' => $fiches
+        ]);    
     }
+
+
+    
 }
