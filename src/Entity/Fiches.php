@@ -57,25 +57,20 @@ class Fiches
     private $Discipline;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Auteur;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=UserProf::class, mappedBy="follow")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="follow")
      */
     private $follow_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UserProf::class, inversedBy="fiches_prof")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="fiches_prof")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $fiches_prof_id;
+    private $auteur;
 
     public function __construct()
     {
@@ -172,18 +167,6 @@ class Fiches
         return $this;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->Auteur;
-    }
-
-    public function setAuteur(string $Auteur): self
-    {
-        $this->Auteur = $Auteur;
-
-        return $this;
-    }
-
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -197,14 +180,14 @@ class Fiches
     }
 
     /**
-     * @return Collection|UserProf[]
+     * @return Collection|User[]
      */
     public function getFollowId(): Collection
     {
         return $this->follow_id;
     }
 
-    public function addFollowId(UserProf $followId): self
+    public function addFollowId(User $followId): self
     {
         if (!$this->follow_id->contains($followId)) {
             $this->follow_id[] = $followId;
@@ -214,7 +197,7 @@ class Fiches
         return $this;
     }
 
-    public function removeFollowId(UserProf $followId): self
+    public function removeFollowId(User $followId): self
     {
         if ($this->follow_id->removeElement($followId)) {
             $followId->removeFollow($this);
@@ -223,14 +206,14 @@ class Fiches
         return $this;
     }
 
-    public function getFichesProfId(): ?UserProf
+    public function getAuteur(): ?User
     {
-        return $this->fiches_prof_id;
+        return $this->auteur;
     }
 
-    public function setFichesProfId(?UserProf $fiches_prof_id): self
+    public function setAuteur(?User $auteur = null): self
     {
-        $this->fiches_prof_id = $fiches_prof_id;
+        $this->auteur = $auteur;
 
         return $this;
     }

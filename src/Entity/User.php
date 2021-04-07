@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\UserProfRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserProfRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class UserProf implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -255,7 +255,7 @@ class UserProf implements UserInterface
     {
         if (!$this->fiches_prof->contains($fichesProf)) {
             $this->fiches_prof[] = $fichesProf;
-            $fichesProf->setFichesProfId($this);
+            $fichesProf->setAuteur($this);
         }
 
         return $this;
@@ -265,8 +265,8 @@ class UserProf implements UserInterface
     {
         if ($this->fiches_prof->removeElement($fichesProf)) {
             // set the owning side to null (unless already changed)
-            if ($fichesProf->getFichesProfId() === $this) {
-                $fichesProf->setFichesProfId(null);
+            if ($fichesProf->getAuteur() === $this) {
+                $fichesProf->setAuteur(null);
             }
         }
 
