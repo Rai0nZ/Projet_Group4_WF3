@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -84,7 +85,7 @@ class AuthentificationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $user = new Utilisateur();
+            $user = new User();
             
             $formData = $form->getData();
 

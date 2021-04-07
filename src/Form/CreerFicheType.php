@@ -18,7 +18,7 @@ class CreerFicheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            -->add('niveau', EntityType::class,[
+            ->add('niveau', EntityType::class,[
                 'class'=> Niveaux::class,
             ])
             ->add('Discipline', EntityType::class,[
