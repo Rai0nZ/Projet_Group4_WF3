@@ -25,6 +25,7 @@
 	{# {% if is_granted('ROLE_PROFESSEUR') %} #}
 	<nav>
 		<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3">
+			<li><a href="{{ path('homepage') }}">Accueil</a></li>
 			<li><a href="{{ path('creer_fiche') }}">Créer une fiche</a></li>
 			<li><a href="{{ path('mes_fiches') }}">Mes fiches</a></li>
 			<li><a href="{{ path('liste_fiches') }}">Fiches de révisions</a></li>
@@ -48,7 +49,7 @@
 
 
 
-	<section class="accueil">
+	<section class=" accueil d-flex justify-content-around">
 		<img src="{{ asset ('img/logo.png')}}" alt="logo EducOfiche" width="10%" height="10%">
 
 		<p class="d-flex justify-content-center font-italic text-center">Lorem ipsum dolor sit amet. Vivamus lorem. Lorem ipsum dolor sit amet. </br>Consectetur adipiscing elit. Vivamus lorem consectetur adipiscing.</p>
