@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,9 +25,9 @@ class AuthentificationController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('homepage');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -48,19 +49,26 @@ class AuthentificationController extends AbstractController
      * @Route("/Inscription", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder) {
-    $form = $this->createFormBuilder()
+
+        $user = new User();
+
+        $form = $this->createFormBuilder()
+
             ->add('email', EmailType::class, [
+                'label' => 'Email',
                 'constraints' => [
                     new NotBlank(),
                     new Email()
                 ]
             ])
             ->add('pseudo', TextType::class, [
+                'label' => 'Pseudo',
                 'constraints' => [
                     new NotBlank()
                 ]
             ])
             ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe',
                 'constraints' => [
                     new NotBlank(),
                     new Length([
@@ -69,12 +77,18 @@ class AuthentificationController extends AbstractController
                 ]
             ])
             ->add('check_password', PasswordType::class, [
+                'label' => 'Confirmation du Mot de Passe',
                 'constraints' => [
                     new EqualTo([
                         'propertyPath' => 'password'
                     ])
                 ]
             ])
+
+            ->add('numen', TextType::class,[
+                'label' => 'NUMEN'
+                ])
+
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer un compte'
             ])
@@ -83,8 +97,8 @@ class AuthentificationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $user = new Utilisateur();
+           dd($user); 
+            $user = new User();
             
             $formData = $form->getData();
 
@@ -93,6 +107,7 @@ class AuthentificationController extends AbstractController
             $user->setPassword($encodedPassword);
             $user->setPseudo($formData['pseudo']);
             $user->setEmail($formData['email']);
+            $user->setEmail($formData['numen']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

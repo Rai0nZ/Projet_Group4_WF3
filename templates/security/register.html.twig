@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Création de Compte | {% endblock %}
-
+{% block style %}<link rel="stylesheet" href="{{asset('css/register/style.css')}}">{% endblock  %}
 {% block body %}
+
+    <h2>Créer Votre Compte</h2>
+
     <div class="container">
         {{ form( form, { 'action': path('Inscription') } ) }}
     </div>
