@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ici vous trouverez toutes les informations relativesà l'accessibilité{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{asset('css/accessibilite/style.css')}}">
+{% endblock %}
+
+{% block body %}
+<article class="container m5-box mt-5 mb-5">
+    <section>
+        Nous accordons un soin tout particulier à la qualité de réalisation de ce site internet afin le rendre accessible au plus grand nombre. 
+        </br>Nous sommes engagée dans une démarche visant à respecter le RGAA (Référentiel général d'amélioration de l'accessibilité) version 4.
+    </section>
+    <section>
+        L'accessibilité est prise en compte par l'ensemble des équipes impliquées dans le développement du site. Une
+        déclaration d’accessibilité en date du 07 avril 2021 mentionne un taux partiellement conforme.
+        Pour renforcer l’accessibilité du site, des formations pour les contributeurs et de nouveaux audits de
+        conformité
+        RGAA seront engagés. D’autres initiatives compléteront ces mesures au fur et à mesure des développements
+        engagés.
+    </section>
+    </br>
+
+    <h3>Déclaration d'accessibilité</h3>
+    <section>
+        Le site educofiche.fr est en conformité partielle avec le référentiel général d’amélioration de l’accessibilité,
+        version 4, en raison des non-conformités et des dérogations énumérées ci-dessous.
+    </section>
+    </br>
+
+    <h3>Nous contacter</h3>
+    <section>
+        Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable du site
+        internet
+        - Mme. TAHANOUT - pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.
+        Pour
+        cela, merci de nous contacter via le formulaire de
+    </section>
+    {# <a href="{{ path('formulaire_contact')  }}">contact.</a> #}
+    </br>
+
+    <h3>Tous les sites publics doivent obéir à des normes d'accessibilité</h3>
+    <section>
+        L’article 47 de la loi n° 2005-102 du 11 février 2005 pour l’égalité des droits et des chances, la participation
+        et la citoyenneté des personnes handicapées fait de l’accessibilité une exigence pour tous les services de
+        communication publique en ligne de l’État, les collectivités territoriales et les établissements publics qui en
+        dépendent :
+    </section>
+
+    </br>
+    <p class="loi">
+        Décret n° 2009-546 du 14 mai 2009 pris en application de l'article 47 de la loi n° 2005-102 du 11 février
+        2005
+        sur l'égalité des droits et des chances, la participation et la citoyenneté des personnes handicapées et
+        créant un
+        référentiel d'accessibilité des services de communication publique en ligne.
+    </p>
+
+</article>
+
+{% endblock %}
