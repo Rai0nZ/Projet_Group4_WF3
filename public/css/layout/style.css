@@ -61,7 +61,7 @@ a{
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
-            flex-direction: row;
+            flex-direction: column;
     margin-right: 2em;
 }
 
@@ -186,6 +186,8 @@ position: fixed;
 cursor: pointer;
 bottom: 50px;;
 right: 2px;
+border: black solid 4px;
+border-radius: 50px;
 }
 
 #myBtn:hover

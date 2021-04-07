@@ -18,20 +18,19 @@ class CreerFicheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('niveau', EntityType::class,[
-            'class'=> Niveaux::class,
-        ])
-        ->add('Discipline', EntityType::class,[
-            'class'=> Disciplines::class,
-        ])
-        ->add('Chapitre')
-        ->add('nom', TextType::class, [
-            'label' => 'Titre de la fiche',])
-        ->add('concept_cle', TextareaType::class)
-        ->add('Formules', TextareaType::class)
-        ->add('A_retenir', TextareaType::class)
-        ->add('Auteur')
-        ->add('Soumettre', SubmitType::class);
+            -->add('niveau', EntityType::class,[
+                'class'=> Niveaux::class,
+            ])
+            ->add('Discipline', EntityType::class,[
+                'class'=> Disciplines::class,
+            ])
+            ->add('Chapitre')
+            ->add('nom', TextType::class, [
+                'label' => 'Titre de la fiche',])
+            ->add('concept_cle', TextareaType::class)
+            ->add('Formules', TextareaType::class)
+            ->add('A_retenir', TextareaType::class)
+            ->add('Soumettre', SubmitType::class);
     }
 
 

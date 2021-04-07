@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FichesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,9 +57,26 @@ class Fiches
     private $Discipline;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date")
      */
-    private $Auteur;
+    private $date;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="follow")
+     */
+    private $follow_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="fiches_prof")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $auteur;
+
+    public function __construct()
+    {
+        $this->follow_id = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -148,14 +167,53 @@ class Fiches
         return $this;
     }
 
-    public function getAuteur(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->Auteur;
+        return $this->date;
     }
 
-    public function setAuteur(string $Auteur): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->Auteur = $Auteur;
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getFollowId(): Collection
+    {
+        return $this->follow_id;
+    }
+
+    public function addFollowId(User $followId): self
+    {
+        if (!$this->follow_id->contains($followId)) {
+            $this->follow_id[] = $followId;
+            $followId->addFollow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollowId(User $followId): self
+    {
+        if ($this->follow_id->removeElement($followId)) {
+            $followId->removeFollow($this);
+        }
+
+        return $this;
+    }
+
+    public function getAuteur(): ?User
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?User $auteur = null): self
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }
