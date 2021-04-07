@@ -26,7 +26,8 @@
         <p class="slogan">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lorem.</p>
 
         <form class="connexion">
-            <section class="zoneDeConnexion">
+        {% include 'security/login.html.twig' %}
+            {# <section class="zoneDeConnexion">
                 <label><b>Pseudo</b></label>
                 <input type="text" placeholder="Entrer le nom d'utilisateur" name="username" class="espace" required>
 
@@ -37,10 +38,9 @@
                 <a href="">Mot de passe oublié ?</a>
                 <a href="">Créer un compte</a>
                 <!-- <p class="erreur">Utilisateur ou mot de passe incorrect</p> -->
-            </section>
+            </section> #}
         </form>
     </section>
-
 
     <div class="banner1"></div>
 

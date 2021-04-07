@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FichesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +60,28 @@ class Fiches
      * @ORM\Column(type="string", length=255)
      */
     private $Auteur;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=UserProf::class, mappedBy="follow")
+     */
+    private $follow_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=UserProf::class, inversedBy="fiches_prof")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $fiches_prof_id;
+
+    public function __construct()
+    {
+        $this->follow_id = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -156,6 +180,57 @@ class Fiches
     public function setAuteur(string $Auteur): self
     {
         $this->Auteur = $Auteur;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProf[]
+     */
+    public function getFollowId(): Collection
+    {
+        return $this->follow_id;
+    }
+
+    public function addFollowId(UserProf $followId): self
+    {
+        if (!$this->follow_id->contains($followId)) {
+            $this->follow_id[] = $followId;
+            $followId->addFollow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollowId(UserProf $followId): self
+    {
+        if ($this->follow_id->removeElement($followId)) {
+            $followId->removeFollow($this);
+        }
+
+        return $this;
+    }
+
+    public function getFichesProfId(): ?UserProf
+    {
+        return $this->fiches_prof_id;
+    }
+
+    public function setFichesProfId(?UserProf $fiches_prof_id): self
+    {
+        $this->fiches_prof_id = $fiches_prof_id;
 
         return $this;
     }
