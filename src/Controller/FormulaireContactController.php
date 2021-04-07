@@ -24,11 +24,11 @@ class FormulaireContactController extends AbstractController
             ->getForm();
 
         if (!$form->isSubmitted() || !$form->isValid()) {
-            return $this->render('formulaire_contact/confirmation.html.twig', [
+            return $this->render('formulaire_contact/index.html.twig', [
                 'form' => $form->createView()
             ]);
         } else {
-            return $this->render('formulaire_contact/index.html.twig', [
+            return $this->render('formulaire_contact/confirmation.html.twig', [
                 'form' => $form->createView()
             ]);
         }
