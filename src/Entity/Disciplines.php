@@ -50,11 +50,12 @@ class Disciplines
 
         return $this;
     }
+
     public function __toString()
     {
         return (string)$this->getMatieres();
     }
-
+    
     /**
      * @return Collection|Fiches[]
      */

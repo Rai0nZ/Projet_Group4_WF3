@@ -113,7 +113,6 @@ class AuthentificationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             $user = new User();
             
             $formData = $form->getData();

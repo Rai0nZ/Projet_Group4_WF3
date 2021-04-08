@@ -3,6 +3,7 @@
 <html lang="fr">
 
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,13 +20,49 @@
     <link rel="stylesheet" href="{{asset('css/layout/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/login/style.css')}}">
     <title>{% block title %}Educofiche{% endblock %}</title>
+
 </head>
 <header>
-    <div id="top"></div>
-    <section class="accueil">
-        <img src="{{ asset ('img/logo.png')}}" alt="logo EducOfiche" width="10%" height="10%">
+	<!-- Nav fiche professeur -->
+	{# {% if is_granted('ROLE_PROFESSEUR') %} #}
+	<nav>
+		<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3">
+			<li><a href="{{ path('homepage') }}">Accueil</a></li>
+			<li><a href="{{ path('creer_fiche') }}">Créer une fiche</a></li>
+			<li><a href="{{ path('mes_fiches') }}">Mes fiches</a></li>
+			<li><a href="{{ path('liste_fiches') }}">Fiches de révisions</a></li>
+		</ul>
+	</nav>
 
-        <p class="slogan">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lorem.</p>
+
+	<!-- Nav fiche user -->
+	{# {% else %}
+	<nav>
+		<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold text-danger">
+			<li>
+				<ahref="{{ path('') }}">Mes fiches enregistrées</a>
+			</li>
+			<li>
+				<ahref="{{ path('') }}">Toutes les fiches</a>
+			</li>
+		</ul>
+	</nav>
+	{% endif %} #}
+
+
+
+	<section class=" accueil d-flex justify-content-around">
+		<img src="{{ asset ('img/logo.png')}}" alt="logo EducOfiche" width="10%" height="10%">
+
+		<p class="d-flex justify-content-center font-italic text-center">Lorem ipsum dolor sit amet. Vivamus lorem. Lorem ipsum dolor sit amet. </br>Consectetur adipiscing elit. Vivamus lorem consectetur adipiscing.</p>
+
+
+		<form class="connexion">
+			{% include 'security/login.html.twig' %}
+			{# <section class="zoneDeConnexion">
+				<label><b>Pseudo</b></label>
+				<input type="text" placeholder="Entrer le nom d'utilisateur" name="username" class="espace" required>
+
 
 
             {% set route = app.request.get('_route') %}
@@ -57,13 +94,13 @@
                
 
         
-    </section>
 
-    <div class="banner1"></div>
 
-    <div class="banner2 title">EducOfiche</div>
+	<div class="banner1"></div>
 
-    <div class="banner3"></div>
+	<div class="banner2 title">EducOfiche</div>
+
+	<div class="banner3"></div>
 </header>
 
 <body>
@@ -71,6 +108,7 @@
 
     <hr>
     
+
 		<footer class="w-auto d-flex flex-row justify-content-around mb-4 box">
 
 			<img src="{{ asset ('img/EducNationnal.png')}}" class="educLogo" alt="logo de l'éducation nationale" width="15%">
@@ -86,7 +124,7 @@
 							<a href="{{ path('accessibilite')  }}">Accessibilité</a>
 						</li>
 						<li>
-							<a href="">Contact</a>
+							<a href="{{ path('formulaire_contact')  }}">Contact</a>
 						</li>
 					</ul>
 				</nav>
@@ -142,4 +180,6 @@ document.documentElement.scrollTop = 0;
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</body>
+
 </html>
+
