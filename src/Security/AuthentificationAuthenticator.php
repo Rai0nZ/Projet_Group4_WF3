@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Entity\UserProf;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +67,7 @@ class AuthentificationAuthenticator extends AbstractFormLoginAuthenticator imple
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(UserProf::class)->findOneBy(['email' => $credentials['email']]);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
             // fail authentication with a custom error
@@ -96,7 +96,7 @@ class AuthentificationAuthenticator extends AbstractFormLoginAuthenticator imple
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('Accueil'));
+        return new RedirectResponse('/Accueil');
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
