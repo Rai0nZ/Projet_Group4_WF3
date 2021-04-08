@@ -2,11 +2,11 @@
     background-color: rgba(233,236,239,255);
     margin-top: 2em;
     margin-left: 6.8em;
-    width: 35em;
-    padding: 2em;
+    width: 24.5em;
+    padding: 1em;
     font-size: 1.3em;
 }
 
 .date{
-    text-align: right;
+    margin-bottom: 0.8em;
 }

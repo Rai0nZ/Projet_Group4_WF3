@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AfficherFicheController!{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{asset('css/AfficherUneFiche/style.css')}}">
+{% endblock %}
+
+
+{% block title %}Fiche{% endblock %}
 
 {% block body %}
+<h2 class="text-center mt-5 mb-5">Fiche {{fiche.Discipline}} - {{fiche.niveau}}</h2>
+<div class="d-flex justify-content-center">
 	<article class="ficheType">
-		<h5>Programme {{fiche.discipline}} - {{fiche.niveau}}</h5>
-		<h5>{{fiche.programme}}, {{fiche.chapitre}} </h5>
-		<p>{{fiche.concept_cle}}</p>
+		<h5>Programme {{fiche.Discipline}} - {{fiche.niveau}}</h5>
+		<h5>{{fiche.chapitre}}</h5>
+		<p>{{fiche.getConceptCle()}}</p>
 		<h5>Formule(s)</h5>
-		<p>{{fiche.formule}}</p>
+		<p>{{fiche.Formules}}</p>
 		<h5>A retenir</h5>
-		<p>{{fiche.a_retenir}}</p>
+		<p>{{fiche.getARetenir()}}</p>
 	</article>
+</div>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block style %}<link rel="stylesheet" href="{{asset('css/Mes-fiches/style.css')}}">{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{asset('css/Mes-fiches/style.css')}}">{% endblock %}
 
 {% block title %}Mes fiches{% endblock %}
 
@@ -8,27 +9,28 @@
 
 {% for f in fiches %}
 
+<section>
+    <div class="mes-fiches">
+        <a href="{{ path('afficher_fiche', {'id': f.id}) }}" title="Voir cette fiche">{{ f.nom }} - {{ f.niveau }}
+            {{ f.Discipline }} </a>
+        <div class="date">{{ f.date|date('d/m/Y') }}</div>
 
-     <section d-flex justify-content-center>
-        <div class="mes-fiches">
-            <td>{{ f.date|date('d/m/Y') }}</td>
-            <a href="{{ path('afficher_fiche', {'id': f.id}) }}" title="Voir cette fiche">{{ f.nom }} </br> {{ f.niveau }}
-                {{ f.Discipline }} </a>
-        </div>
-        
-        
-            <div>
-                <a href="{{ path('modifier_fiche', {'id': f.id}) }}" title="Modifier cette fiche" class="btn btn-primary">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a href="{{ path( 'supprimer_fiche', {'id': f.id} ) }}" title="Supprimer cette fiche" class="btn btn-danger"
-                    onclick="return confirm('Êtes-vous sûr ?')">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </div>
-        </section>
+        <a href="{{ path('modifier_fiche', {'id': f.id}) }}" title="Modifier cette fiche" class="btn btn-primary">
+            <i class="fas fa-edit"></i>
+        </a>
+        <a href="{{ path( 'supprimer_fiche', {'id': f.id} ) }}" title="Supprimer cette fiche" class="btn btn-danger"
+            onclick="return confirm('Êtes-vous sûr ?')">
+            <i class="fas fa-trash"></i>
+        </a>
+    </div>
 
-  
+
+
+
+</section>
+
+
+
 
 
 {% else %}
