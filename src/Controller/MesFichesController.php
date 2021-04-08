@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Fiches;
+use App\Entity\User;
 use App\Form\CreerFicheType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,22 +17,28 @@ class MesFichesController extends AbstractController
      */
     public function voirMesFiches(): Response
     {
+        $user = $this->getUser();
+
         $repository = $this->getDoctrine()->getRepository(Fiches::class);
         $fiches = $repository->findBy([
-            'Auteur' => "Sabrina Tht"
+            'auteur' => $user
         ]);
 
         return $this->render('mes_fiches/index.html.twig', [
             'fiches' => $fiches
-        ]);    
+        ]);
     }
+
+
     /**
      * @Route("/{id}/edit", name="modifier_fiche", methods={"GET","POST"})
      */
-    public function modifier_fiche(Request $request,Fiches $fiche): Response
+    public function modifier_fiche(Request $request, Fiches $fiche): Response
     {
+
         $form = $this->createForm(CreerFicheType::class, $fiche);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -39,12 +46,13 @@ class MesFichesController extends AbstractController
             return $this->redirectToRoute('mes_fiches');
         }
 
-        return $this->render('modifier-fiche.html.twig', [
-            'fiches' => $fiche,
+        return $this->render('mes_fiches/modifier-fiche.html.twig', [
+            'fiche' => $fiche,
             'form' => $form->createView(),
         ]);
     }
-        /**
+    
+    /**
      * @Route("/{id}", name="supprimer_fiche", methods={"DELETE"})
      */
     public function delete(Request $request, Fiches $fiche): Response
