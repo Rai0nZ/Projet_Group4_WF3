@@ -31,10 +31,14 @@ class MesFichesController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="modifier_fiche", methods={"GET","POST"})
+     * @Route("/modifier-fiche/{id}", name="modifier_fiche", methods={"GET","POST"})
      */
     public function modifier_fiche(Request $request, Fiches $fiche): Response
     {
+
+        if ($this->getUser() != $fiche->getAuteur()) {
+            return $this->redirectToRoute('homepage');
+        }
 
         $form = $this->createForm(CreerFicheType::class, $fiche);
         $form->handleRequest($request);
@@ -51,13 +55,13 @@ class MesFichesController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
     /**
      * @Route("/{id}", name="supprimer_fiche", methods={"DELETE"})
      */
     public function delete(Request $request, Fiches $fiche): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$fiche->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $fiche->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($fiche);
             $entityManager->flush();
