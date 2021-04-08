@@ -24,7 +24,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: Accueil
+                target: homepage
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 2592000 # 1 month in seconds

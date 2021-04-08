@@ -3,11 +3,12 @@
 {% block title %}Création de Compte | {% endblock %}
 {% block style %}<link rel="stylesheet" href="{{asset('css/register/style.css')}}">{% endblock  %}
 {% block body %}
+   <section class="Inscription">
+        <h2>Créer votre compte</h2>
 
-    <h2>Créer Votre Compte</h2>
-
-    <div class="container">
-        {{ form( form, { 'action': path('Inscription') } ) }}
-    </div>
+        <div class="container">
+            {{ form( form, { 'action': path('app_register') } ) }}
+        </div>
+    </section>
 
 {% endblock %}

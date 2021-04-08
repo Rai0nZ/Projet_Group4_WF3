@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,7 +16,6 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -26,7 +27,7 @@ class AuthentificationController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_login');
         }
 
         // get the login error if there is one
@@ -41,19 +42,34 @@ class AuthentificationController extends AbstractController
      * @Route("/logout", name="app_logout")
      */
     public function logout()
-    {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }
+    {}
 
     /**
      * @Route("/Inscription", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder) {
 
-        $user = new User();
-
         $form = $this->createFormBuilder()
 
+        ->add('nom', TextType::class, [
+            'label' => 'Nom',
+            'constraints' => [
+                new NotBlank(),
+            ]
+        ])
+        ->add('prenom', TextType::class, [
+            'label' => 'Prenom',
+            'constraints' => [
+                new NotBlank(),
+            ]
+        ])
+        // Date de naissance constraint a voir avec jordan =============================
+        ->add('date_de_naissance', DateType::class, [
+            'label' => 'Date de naissance',
+            'constraints' => [
+                new NotBlank(),
+            ]
+        ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
@@ -72,21 +88,20 @@ class AuthentificationController extends AbstractController
                 'constraints' => [
                     new NotBlank(),
                     new Length([
-                        'min' => 8
+                        'min' => 4
                     ])
                 ]
             ])
-            ->add('check_password', PasswordType::class, [
-                'label' => 'Confirmation du Mot de Passe',
-                'constraints' => [
-                    new EqualTo([
-                        'propertyPath' => 'password'
-                    ])
-                ]
-            ])
-
-            ->add('numen', TextType::class,[
-                'label' => 'NUMEN'
+            // ->add('check_password', PasswordType::class, [
+            //     'label' => 'Confirmation du Mot de Passe',
+            //     'constraints' => [
+            //         new EqualTo([
+            //             'propertyPath' => 'password'
+            //         ])
+            //     ]
+            // ])
+            ->add('numen', IntegerType::class,[
+                'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant'
                 ])
 
             ->add('submit', SubmitType::class, [
@@ -97,7 +112,8 @@ class AuthentificationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           dd($user); 
+
+
             $user = new User();
             
             $formData = $form->getData();
@@ -107,13 +123,16 @@ class AuthentificationController extends AbstractController
             $user->setPassword($encodedPassword);
             $user->setPseudo($formData['pseudo']);
             $user->setEmail($formData['email']);
-            $user->setEmail($formData['numen']);
+            $user->setNumen($formData['numen']);
+            $user->setNom($formData['nom']);
+            $user->setPrenom($formData['prenom']);
+            $user->setDateDeNaissance($formData['date_de_naissance']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('Accueil');
+            return $this->redirectToRoute('homepage');
         } else {
             return $this->render('security/register.html.twig', [
                 'form' => $form->createView()
