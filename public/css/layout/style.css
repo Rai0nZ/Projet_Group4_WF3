@@ -34,7 +34,7 @@
 }
 
 
-a{
+a .header{
     text-decoration: none;
     font-size: 1.0em;
     color: blue;
@@ -147,6 +147,12 @@ footer
             align-items: center;
 }
 
+
+a .footer{
+    text-decoration: none;
+    font-size: 1.0em;
+    color: blue;
+}
 
 footer .reseauxSociaux, svg{
     margin-right: 3em;
