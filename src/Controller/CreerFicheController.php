@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Fiches;
 use App\Form\CreerFicheType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +32,8 @@ class CreerFicheController extends AbstractController {
             ]);
         }
         
+        $fiche->setDate(new DateTime());
+        $fiche->setAuteur($this->getUser());
         $em = $this->getDoctrine()->getManager();
         $em->persist($fiche);
         $em->flush();

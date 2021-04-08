@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block style %}<link rel="stylesheet" href="{{asset('css/login/style.css')}}">{% endblock  %}
+
+{% block body %}
+<form action="{{ path('app_login') }}" method="post">
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if not app.user %}
+    <section class="connexion container">
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}">
+        <br>
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Connexion
+        </button>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Se souvenir
+                </label>
+            </div>
+            <a href="">Mot de passe oublié ?</a>
+            <a href="{{ path('app_register') }}">Créer un compte</a>
+        {% endif %}
+
+
+        {# Ici on met le menu Nav une fois connecter en tant que prof et utilisateurs #}
+        {% if app.user %}
+            <div class="mb-3">
+                Bonjour {{ app.user.pseudo }} <a href="{{ path('app_logout') }}"><hr>Deconnection</a>
+            </div>
+        {% endif %}
+        
+    </section>
+
+    
+</form>
+{% endblock %}
