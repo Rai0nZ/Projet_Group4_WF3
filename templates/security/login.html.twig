@@ -36,7 +36,7 @@
         {# Ici on met le menu Nav une fois connecter en tant que prof et utilisateurs #}
         {% if app.user %}
             <div class="mb-3">
-                Bonjour {{ app.user.pseudo }} <a href="{{ path('app_logout') }}"><hr>Deconnection</a>
+                Bonjour {{ app.user.pseudo }} <a href="{{ path('app_logout') }}"><hr>Déconnexion</a>
             </div>
         {% endif %}
         
