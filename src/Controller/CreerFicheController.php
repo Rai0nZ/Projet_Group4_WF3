@@ -34,8 +34,9 @@ class CreerFicheController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
         $em->persist($fiche);
         $em->flush();
-        
-        return new Response('Fiches Creer! son ID =' . $fiche->getId());
+
+
+        return $this->redirect('/afficher_fiche/' . $fiche->getId());
 
     }
     

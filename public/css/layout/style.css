@@ -23,10 +23,10 @@
                     align-items: center;
 }
 
-.slogan{
-    font-size: 1.5em;
+/* .slogan{
+    font-size: 1em;
     font-style: oblique;
-}
+} */
 
 .zoneDeConnexion{
     margin-right: 1em;
@@ -61,7 +61,7 @@ a .header{
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
-            flex-direction: row;
+            flex-direction: column;
     margin-right: 2em;
 }
 

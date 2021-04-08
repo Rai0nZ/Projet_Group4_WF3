@@ -30,10 +30,8 @@ class CreerFicheType extends AbstractType
             ->add('concept_cle', TextareaType::class)
             ->add('Formules', TextareaType::class)
             ->add('A_retenir', TextareaType::class)
-            ->add('Auteur')
             ->add('Soumettre', SubmitType::class);
     }
-
 
 
     public function configureOptions(OptionsResolver $resolver)

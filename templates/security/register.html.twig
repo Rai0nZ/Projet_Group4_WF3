@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de Compte | {% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form( form, { 'action': path('Inscription') } ) }}
+    </div>
+
+{% endblock %}
