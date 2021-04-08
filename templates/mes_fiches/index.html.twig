@@ -12,7 +12,7 @@
     <div class="mes-fiches">
         <a href="{{ path('afficher_fiche', {'auteur': f.auteur}) }}" title="Voir cette fiche">{{ f.nom }} </br> {{ f.niveau }} {{ f.Discipline }} </a>
     
-     <td>{{ a.date|date('d/m/Y') }}</td> #}
+     <td>{{ f.date|date('d/m/Y') }}</td> #}
 
     <td>
         <a href="{{ path('modifier_fiche', {'id': f.auteur}) }}" title="Modifier cette fiche" class="btn btn-primary">
