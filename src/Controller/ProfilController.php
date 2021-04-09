@@ -4,9 +4,16 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -14,10 +21,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/afficher-profil/{id}", name="mon-profil")
+     * @Route("/afficher-profil", name="mon-profil")
      */
-    public function AfficherProfil(User $profil): Response
+    public function AfficherProfil() : Response
     {
+
+        $profil= $this->getUser();
 
         return $this->render('profil/index.html.twig', [
             'profil' => $profil
@@ -26,16 +35,14 @@ class ProfilController extends AbstractController
     }
 
      /**
-     * @Route("/modifier-profil/{id}", name="modifier_profil",  methods={"GET","POST"})
+     * @Route("/modifier-profil", name="modifier_profil",  methods={"GET","POST"})
      */
-    public function modifier_profil(Request $request, User $profil): Response
+    public function modifier_profil(UserPasswordEncoderInterface $encoder, Request $request): Response
     {
 
-        if ($this->getUser() != $profil->getEmail()) {
-            return $this->redirectToRoute('homepage');
-        }
+        $profil= $this->getUser();
 
-        $form = $this->createFormBuilder()
+        $form = $this->createFormBuilder($profil)
 
         ->add('nom', TextType::class, [
             'label' => 'Nom',
@@ -84,17 +91,21 @@ class ProfilController extends AbstractController
                 ])
 
             ->add('submit', SubmitType::class, [
-                'label' => 'Créer un compte'
+                'label' => 'Modifier votre profil'
             ])
             ->getForm();
+
 
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $encodedPassword = $encoder->encodePassword($profil, $profil->getPassword());
+            $profil->setPassword($encodedPassword);
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('mon-profil');
         }
 
         return $this->render('profil/modifier-profil.html.twig', [
