@@ -72,6 +72,11 @@ class Fiches
      */
     private $auteur;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Vote::class, mappedBy="fiche", cascade={"persist", "remove"})
+     */
+    private $votes;
+
     public function __construct()
     {
         $this->follow_id = new ArrayCollection();
@@ -214,6 +219,28 @@ class Fiches
     public function setAuteur(?User $auteur = null): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getVotes(): ?Vote
+    {
+        return $this->votes;
+    }
+
+    public function setVotes(?Vote $votes): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($votes === null && $this->votes !== null) {
+            $this->votes->setFiche(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($votes !== null && $votes->getFiche() !== $this) {
+            $votes->setFiche($this);
+        }
+
+        $this->votes = $votes;
 
         return $this;
     }

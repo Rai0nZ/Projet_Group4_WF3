@@ -6,12 +6,13 @@
 {% block style %}
 	<link rel="stylesheet" href="{{asset('css/Liste_Fiches/styles.css')}}">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-
 {% endblock %}
+
 {% block body %}
 	<main class"container">
 		<br>
 		<h2>Liste des fiches</h2>
+
 		<div class="container Fiches">
 			<table id="myTable">
 				<thead class="thead-muted">
@@ -24,9 +25,9 @@
 						<th></th>
 					</tr>
 				</thead>
+
 				{% for f in fiches %}
 					<div style="container">
-
 						<tbody>
 							<tr>
 								<td>
@@ -36,34 +37,32 @@
 								<td>
 									{{f.niveau}}
 								</td>
-							</tr>
-						</tbody>
-					</a>
-				</td>
 
-				<td>
-					{{f.nom}}
-				</td>
+							<td>
+								{{f.nom}}
+							</td>
 
-				<td>
-					{{ f.date|date('d/m/Y') }}
-				</td>
+							<td>
+								{{ f.date|date('d/m/Y') }}
+							</td>
 
-				<td>
-					{{ f.getAuteur().getPseudo() }}
-				</td>
+							<td>
+								{{ f.getAuteur().getPseudo() }}
+							</td>
 
-				<td>
-					<a href="{{ path( 'afficher_fiche', {'id': f.id} )}}" title="Voir cet fiche" target="_blank">
-						<button class="">Afficher</button>
-					</a>
-				</td>
+							<td>
+								<a href="{{ path( 'afficher_fiche', {'id': f.id} )}}" title="Voir cet fiche" target="_blank">
+									<button class="">Afficher</button>
+								</a>
+							</td>
+					</tr>
 
-			</tr>
 
-		{% else %}
-			<tr>Il n'y a aucun article à afficher.</tr>
-		{% endfor %}
+				{% else %}
+					<tr>Il n'y a aucun article à afficher.</tr>
+				{% endfor %}
 
-	</tbody>
-</table></div></main>{% endblock %}
+			</tbody>
+		</table>
+	</div>
+</main>{% endblock %}

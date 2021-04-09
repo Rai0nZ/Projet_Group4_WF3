@@ -71,6 +71,11 @@ class User implements UserInterface
      */
     private $fiches_prof;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Vote::class, mappedBy="utilisateur", cascade={"persist", "remove"})
+     */
+    private $votes;
+
     public function __construct()
     {
         $this->follow = new ArrayCollection();
@@ -269,6 +274,28 @@ class User implements UserInterface
                 $fichesProf->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVotes(): ?Vote
+    {
+        return $this->votes;
+    }
+
+    public function setVotes(?Vote $votes): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($votes === null && $this->votes !== null) {
+            $this->votes->setUtilisateur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($votes !== null && $votes->getUtilisateur() !== $this) {
+            $votes->setUtilisateur($this);
+        }
+
+        $this->votes = $votes;
 
         return $this;
     }
