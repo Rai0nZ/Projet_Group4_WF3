@@ -14,7 +14,7 @@ class FormulaireContactController extends AbstractController
     /**
      * @Route("/formulaire-contact", name="formulaire_contact")
      */
-    public function index(): Response
+    public function formulaireContact(): Response
     {
 
         $form = $this->createFormBuilder()

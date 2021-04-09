@@ -20,7 +20,7 @@
 	</head>
 	<header>
 		<!-- Nav fiche professeur -->
-		{# {% if is_granted('ROLE_PROFESSEUR') %} #}
+		{% if is_granted('ROLE_PROFESSEUR') %}
 			<nav>
 				<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3"> <li>
 					<a href="{{ path('homepage') }}">Accueil</a>
@@ -42,18 +42,18 @@
 
 
 		<!-- Nav fiche user -->
-		{# {% else %}
+		{% else %}
 					<nav>
 						<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold text-danger">
 							<li>
-								<ahref="{{ path('') }}">Mes fiches enregistrées</a>
+								<a href="{{ path('mentions_legales') }}">Mes fiches enregistrées</a>
 							</li>
 							<li>
-								<ahref="{{ path('') }}">Toutes les fiches</a>
+								<a href="{{ path('formulaire_contact') }}">Toutes les fiches</a>
 							</li>
 						</ul>
 					</nav>
-					{% endif %} #}
+		{% endif %}
 
 
 		<section class="accueil d-flex justify-content-around">

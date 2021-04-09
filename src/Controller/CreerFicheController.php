@@ -16,7 +16,7 @@ class CreerFicheController extends AbstractController {
     /**
      * @Route("/creer-fiche", name="creer_fiche")
      */
-    public function index(Request $r): Response
+    public function creerFiche(Request $r): Response
     {
 
         $fiche = new Fiches();

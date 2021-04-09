@@ -11,7 +11,7 @@ class AccessibiliteController extends AbstractController
     /**
      * @Route("/accessibilite", name="accessibilite")
      */
-    public function index(): Response
+    public function accessibilite(): Response
     {
         return $this->render('accessibilite/index.html.twig', [
             'controller_name' => 'AccessibiliteController',

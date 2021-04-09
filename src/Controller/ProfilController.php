@@ -23,7 +23,7 @@ class ProfilController extends AbstractController
     /**
      * @Route("/afficher-profil", name="mon-profil")
      */
-    public function AfficherProfil() : Response
+    public function afficherProfil() : Response
     {
 
         $profil= $this->getUser();
