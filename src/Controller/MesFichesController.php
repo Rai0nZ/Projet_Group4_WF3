@@ -55,22 +55,6 @@ class MesFichesController extends AbstractController
         ]);
     }
 
-//     /**
-//      * @Route("/{id}", name="supprimer_fiche", methods={"DELETE"})
-//      */
-//     public function delete(Request $request, Fiches $fiche): Response
-//     {
-//         if ($this->isCsrfTokenValid('delete' . $fiche->getId(), $request->request->get('_token'))) {
-//             $entityManager = $this->getDoctrine()->getManager();
-//             $entityManager->remove($fiche);
-//             $entityManager->flush();
-//         }
-
-//         return $this->redirectToRoute('mes-fiches');
-//     }
-// }
-
-
    /**
      * @Route("/supprimer-une-fiche/{id}", name="supprimer_fiche")
      */
