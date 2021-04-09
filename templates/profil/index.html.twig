@@ -26,6 +26,10 @@
             <th scope="col">Adresse e-mail</th>
             <td scope="col">{{profil.email}}</td>
         </tr>
+        <tr>
+            <th scope="col">Date de naissance</th>
+            <td scope="col">{{ profil.getDateDeNaissance()|date('d-m-Y')}}</td>
+        </tr>
 
         <tr>
             <th scope="col">Pseudo</th>
@@ -44,7 +48,7 @@
 
 
 
-        <a href="{{ path('modifier-profil', {'id': p.id}) }}" title="Modifier votre profil" class="btn btn-primary">
+        <a href="{{ path('modifier_profil', {'id': profil.id}) }}" title="Modifier votre profil" class="btn btn-primary">
             <button type="button" class="btn btn-primary ml-10 box">Modifier profil</button>
         </a>
 
