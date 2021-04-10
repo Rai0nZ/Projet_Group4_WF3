@@ -73,13 +73,14 @@ class Fiches
     private $auteur;
 
     /**
-     * @ORM\OneToOne(targetEntity=Vote::class, mappedBy="fiche", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="fiche", orphanRemoval=true)
      */
     private $votes;
 
     public function __construct()
     {
         $this->follow_id = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
 
@@ -223,24 +224,32 @@ class Fiches
         return $this;
     }
 
-    public function getVotes(): ?Vote
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
     {
         return $this->votes;
     }
 
-    public function setVotes(?Vote $votes): self
+    public function addVote(Vote $vote): self
     {
-        // unset the owning side of the relation if necessary
-        if ($votes === null && $this->votes !== null) {
-            $this->votes->setFiche(null);
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setFiche($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($votes !== null && $votes->getFiche() !== $this) {
-            $votes->setFiche($this);
-        }
+        return $this;
+    }
 
-        $this->votes = $votes;
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getFiche() === $this) {
+                $vote->setFiche(null);
+            }
+        }
 
         return $this;
     }

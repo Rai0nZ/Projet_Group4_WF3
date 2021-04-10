@@ -20,39 +20,45 @@
 	</head>
 	<header>
 		<!-- Nav fiche professeur -->
-		{% if is_granted('ROLE_PROFESSEUR') %}
+		{% if is_granted('ROLE_ADMIN') %}
 			<nav>
-				<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3"> <li>
-					<a href="{{ path('homepage') }}">Accueil</a>
-				</li>
-				<li>
-					<a href="{{ path('mon-profil') }}">Profil</a>
-				</li>
-				<li>
-					<a href="{{ path('creer_fiche') }}">Créer une fiche</a>
-				</li>
-				<li>
-					<a href="{{ path('mes_fiches') }}">Mes fiches</a>
-				</li>
-				<li>
-					<a href="{{ path('liste_fiches') }}">Toutes les fiches de révision</a>
-				</li>
-			</ul>
-		</nav>
+				<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3">
+					<li>
+						<a href="{{ path('homepage') }}">Accueil</a>
+					</li>
+					<li>
+						<a href="{{ path('mon-profil') }}">Profil</a>
+					</li>
+					<li>
+						<a href="{{ path('creer_fiche') }}">Créer une fiche</a>
+					</li>
+					<li>
+						<a href="{{ path('mes_fiches') }}">Mes fiches</a>
+					</li>
+					<li>
+						<a href="{{ path('liste_fiches') }}">Toutes les fiches de révision</a>
+					</li>
+				</ul>
+			</nav>	
 
-
-		<!-- Nav fiche user -->
+			<!-- Nav fiche user -->
 		{% else %}
-					<nav>
-						<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold text-danger">
-							<li>
-								<a href="{{ path('mentions_legales') }}">Mes fiches enregistrées</a>
-							</li>
-							<li>
-								<a href="{{ path('formulaire_contact') }}">Toutes les fiches</a>
-							</li>
-						</ul>
-					</nav>
+			<nav>
+				<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3">
+					<li>
+						<a href="{{ path('homepage') }}">Accueil</a>
+					</li>
+					<li>
+						<a href="{{ path('mon-profil') }}">Profil</a>
+					</li>
+					<li>
+						<a href="{{ path('mes_fiches') }}">Mes fiches enregistrées</a>
+					</li>
+					<li>
+						<a href="{{ path('liste_fiches') }}">Toutes les fiches</a>
+					</li>
+				</ul>
+			</nav>
 		{% endif %}
 
 
@@ -160,12 +166,10 @@ document.documentElement.scrollTop = 0;
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 			<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 			<script>
-				$(document).ready( function () 
-					{
-						$('#myTable').DataTable();
-					} 
-				);
+				$(document).ready(function () {
+$('#myTable').DataTable();
+});
 			</script>
 		</body>
 	</html>
-</html>
+</html></html>

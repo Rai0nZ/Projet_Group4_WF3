@@ -18,14 +18,15 @@ class Vote
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Fiches::class, inversedBy="votes", cascade={"persist", "remove"})
-     */
-    private $fiche;
-
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="vote", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="votes", cascade={"persist", "remove"})
      */
     private $utilisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Fiches::class, inversedBy="votes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $fiche;
 
     public function getId(): ?int
     {

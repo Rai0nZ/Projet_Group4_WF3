@@ -33,7 +33,7 @@ class AuthentificationController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();      
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->redirectToRoute('homepage');
     }
@@ -42,34 +42,36 @@ class AuthentificationController extends AbstractController
      * @Route("/logout", name="app_logout")
      */
     public function logout()
-    {}
+    {
+    }
 
     /**
      * @Route("/Inscription", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder) {
+    public function register(Request $request, UserPasswordEncoderInterface $encoder)
+    {
 
         $form = $this->createFormBuilder()
 
-        ->add('nom', TextType::class, [
-            'label' => 'Nom',
-            'constraints' => [
-                new NotBlank(),
-            ]
-        ])
-        ->add('prenom', TextType::class, [
-            'label' => 'Prenom',
-            'constraints' => [
-                new NotBlank(),
-            ]
-        ])
-        // Date de naissance constraint a voir avec jordan =============================
-        ->add('date_de_naissance', DateType::class, [
-            'label' => 'Date de naissance',
-            'constraints' => [
-                new NotBlank(),
-            ]
-        ])
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                'label' => 'Prenom',
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
+            // Date de naissance constraint a voir avec jordan =============================
+            ->add('date_de_naissance', DateType::class, [
+                'label' => 'Date de naissance',
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
@@ -100,9 +102,10 @@ class AuthentificationController extends AbstractController
             //         ])
             //     ]
             // ])
-            ->add('numen', IntegerType::class,[
-                'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant'
-                ])
+            ->add('numen', IntegerType::class, [
+                'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant',
+                'required'=>false
+            ])
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer un compte'
@@ -114,11 +117,11 @@ class AuthentificationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $user = new User();
-            
+
             $formData = $form->getData();
 
             $encodedPassword = $encoder->encodePassword($user, $formData['password']);
-            
+
             $user->setPassword($encodedPassword);
             $user->setPseudo($formData['pseudo']);
             $user->setEmail($formData['email']);
@@ -126,6 +129,11 @@ class AuthentificationController extends AbstractController
             $user->setNom($formData['nom']);
             $user->setPrenom($formData['prenom']);
             $user->setDateDeNaissance($formData['date_de_naissance']);
+
+
+            if (!empty($user->getNumen())) {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -138,5 +146,4 @@ class AuthentificationController extends AbstractController
             ]);
         }
     }
-
 }
