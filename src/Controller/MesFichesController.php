@@ -16,6 +16,7 @@ class MesFichesController extends AbstractController
      */
     public function voirMesFiches(): Response
     {
+
         $user = $this->getUser();
 
         $repository = $this->getDoctrine()->getRepository(Fiches::class);
@@ -27,6 +28,24 @@ class MesFichesController extends AbstractController
             'fiches' => $fiches
         ]);
     }
+
+    /**
+     * @Route("/mes-fiches-eleve", name="mes_fiches")
+     */
+    // public function voirMesFichesEnregistrées(): Response
+    // {
+    //     $user = $this->getUser();
+
+    //     $repository = $this->getDoctrine()->getRepository(Fiches::class);
+    //     $fiches = $repository->findBy([
+    //         'follow_id' => $user
+    //     ]);
+
+    //     return $this->render('mes_fiches/index.html.twig', [
+    //         'fiches' => $fiches
+    //     ]);
+    // }
+
 
 
     /**
