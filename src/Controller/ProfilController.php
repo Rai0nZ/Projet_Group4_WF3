@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -42,8 +43,12 @@ class ProfilController extends AbstractController
 
         $profil= $this->getUser();
 
+    if (!$this->isGranted('ROLE_ADMIN')) 
+    { 
         $form = $this->createFormBuilder($profil)
 
+                
+        
         ->add('nom', TextType::class, [
             'label' => 'Nom',
             'constraints' => [
@@ -59,6 +64,70 @@ class ProfilController extends AbstractController
 
         ->add('date_de_naissance', DateType::class, [
             'label' => 'Date de naissance',
+            'years' => range(2021,1900),
+            'constraints' => [
+                new NotBlank(),
+            ]
+        ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'constraints' => [
+                    new NotBlank(),
+                    new Email()
+                ]
+            ])
+            ->add('pseudo', TextType::class, [
+                'label' => 'Pseudo',
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ])
+            ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 4
+                    ])
+                ]
+            ])
+            
+            ->add('numen', IntegerType::class,[
+                'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant'
+                ])
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'Modifier votre profil'
+            ])
+            ->getForm();
+
+
+        $form->handleRequest($request);
+    }
+
+
+    else
+    {
+        $form = $this->createFormBuilder($profil)
+
+                
+        
+        ->add('nom', TextType::class, [
+            'label' => 'Nom',
+            'constraints' => [
+                new NotBlank(),
+            ]
+        ])
+        ->add('prenom', TextType::class, [
+            'label' => 'Prenom',
+            'constraints' => [
+                new NotBlank(),
+            ]
+        ])
+
+        ->add('date_de_naissance', DateType::class, [
+            'label' => 'Date de naissance',
+            'years' => range(2021,1900),
             'constraints' => [
                 new NotBlank(),
             ]
@@ -86,10 +155,6 @@ class ProfilController extends AbstractController
                 ]
             ])
 
-            ->add('numen', IntegerType::class,[
-                'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant'
-                ])
-
             ->add('submit', SubmitType::class, [
                 'label' => 'Modifier votre profil'
             ])
@@ -97,8 +162,8 @@ class ProfilController extends AbstractController
 
 
         $form->handleRequest($request);
-
-
+    }
+                          
         if ($form->isSubmitted() && $form->isValid()) {
             $encodedPassword = $encoder->encodePassword($profil, $profil->getPassword());
             $profil->setPassword($encodedPassword);

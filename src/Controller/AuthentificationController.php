@@ -3,11 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use Doctrine\DBAL\Types\DateType as TypesDateType;
+use PhpParser\Node\NullableType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,8 +73,9 @@ class AuthentificationController extends AbstractController
                 ]
             ])
             // Date de naissance constraint a voir avec jordan =============================
-            ->add('date_de_naissance', DateType::class, [
+            ->add('date_de_naissance',DateType::class, [
                 'label' => 'Date de naissance',
+                'years' => range(2021,1900),
                 'constraints' => [
                     new NotBlank(),
                 ]
@@ -104,7 +112,8 @@ class AuthentificationController extends AbstractController
             // ])
             ->add('numen', IntegerType::class, [
                 'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant',
-                'required'=>false
+                'required'=>false,
+                'empty_data'=> null
             ])
 
             ->add('submit', SubmitType::class, [
@@ -120,7 +129,7 @@ class AuthentificationController extends AbstractController
 
             $formData = $form->getData();
 
-            $encodedPassword = $encoder->encodePassword($user, $formData['password']);
+            $encodedPassword = $encoder->encodePassword($user,$formData['password']);
 
             $user->setPassword($encodedPassword);
             $user->setPseudo($formData['pseudo']);

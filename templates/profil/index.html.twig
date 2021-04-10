@@ -39,10 +39,12 @@
             <th scope="col">Mot de passe</th>
             <td scope="col">************</td>
         </tr>
+        {% if is_granted('ROLE_ADMIN') %}
         <tr>
             <th scope="col">Numero NUMEN</th>
             <td scope="col">**************</td>
         </tr>
+        {% endif %}
     </tbody>
 </table>
 

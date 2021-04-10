@@ -57,7 +57,7 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $numen;
 
@@ -217,7 +217,7 @@ class User implements UserInterface
         return $this->numen;
     }
 
-    public function setNumen(int $numen): self
+    public function setNumen(?int $numen): self
     {
         $this->numen = $numen;
 
