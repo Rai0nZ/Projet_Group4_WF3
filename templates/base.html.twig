@@ -21,7 +21,7 @@
 	<header>
 		<!-- Nav fiche professeur -->
 		{% if is_granted('ROLE_ADMIN') %}
-			<nav>
+			<nav class="navheader">
 				<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3">
 					<li>
 						<a href="{{ path('homepage') }}">Accueil</a>
@@ -43,7 +43,7 @@
 
 			<!-- Nav fiche user -->
 		{% else %}
-			<nav>
+			<nav class="navheader">
 				<ul class="d-flex flex-row list-unstyled justify-content-around font-weight-bold mt-3">
 					<li>
 						<a href="{{ path('homepage') }}">Accueil</a>
@@ -80,7 +80,7 @@
 		<div class="banner2 title">EducOfiche</div>
 
 		<div class="banner3"></div>
-
+	</header>
 
 		<body>
 			{% block body %}{% endblock %}
