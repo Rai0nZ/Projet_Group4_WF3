@@ -43,7 +43,7 @@ class ProfilController extends AbstractController
 
         $profil= $this->getUser();
 
-    if (!$this->isGranted('ROLE_ADMIN')) 
+    if ($this->isGranted('ROLE_ADMIN')) 
     { 
         $form = $this->createFormBuilder($profil)
 
