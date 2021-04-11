@@ -62,11 +62,6 @@ class User implements UserInterface
     private $numen;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Fiches::class, inversedBy="follow_id")
-     */
-    private $follow;
-
-    /**
      * @ORM\OneToMany(targetEntity=Fiches::class, mappedBy="auteur", orphanRemoval=true)
      */
     private $fiches_prof;
@@ -77,14 +72,14 @@ class User implements UserInterface
     private $votes;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Fiches::class, inversedBy="users_suivis")
+     * @ORM\ManyToMany(targetEntity=Fiches::class, inversedBy="utilisateurs_enregistrees")
      */
-    private $suivis;
+    private $fiches_enregistrees;
 
     public function __construct()
     {
-        $this->follow = new ArrayCollection();
         $this->fiches_prof = new ArrayCollection();
+        $this->fiches_enregistrees = new ArrayCollection();
     }
     
 
@@ -232,30 +227,6 @@ class User implements UserInterface
     /**
      * @return Collection|Fiches[]
      */
-    public function getFollow(): Collection
-    {
-        return $this->follow;
-    }
-
-    public function addFollow(Fiches $follow): self
-    {
-        if (!$this->follow->contains($follow)) {
-            $this->follow[] = $follow;
-        }
-
-        return $this;
-    }
-
-    public function removeFollow(Fiches $follow): self
-    {
-        $this->follow->removeElement($follow);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Fiches[]
-     */
     public function getFichesProf(): Collection
     {
         return $this->fiches_prof;
@@ -305,14 +276,26 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSuivis(): ?Fiches
+    /**
+     * @return Collection|Fiches[]
+     */
+    public function getFichesEnregistrees(): Collection
     {
-        return $this->suivis;
+        return $this->fiches_enregistrees;
     }
 
-    public function setSuivis(?Fiches $suivis): self
+    public function addFichesEnregistree(Fiches $fichesEnregistree): self
     {
-        $this->suivis = $suivis;
+        if (!$this->fiches_enregistrees->contains($fichesEnregistree)) {
+            $this->fiches_enregistrees[] = $fichesEnregistree;
+        }
+
+        return $this;
+    }
+
+    public function removeFichesEnregistree(Fiches $fichesEnregistree): self
+    {
+        $this->fiches_enregistrees->removeElement($fichesEnregistree);
 
         return $this;
     }

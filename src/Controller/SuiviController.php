@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SuiviController extends AbstractController
 {
     /**
-     * @Route("/suivi/{id}", name="suivi")
+     * @Route("/fiches-enregistrees/{id}", name="fiches_enregistrees")
      */
     public function SuivreUneFiche(Fiches $fiche): Response
     {
@@ -23,13 +23,13 @@ class SuiviController extends AbstractController
         $user = $this->getUser();
         
 
-        if (!empty($user->getSuivis())) {
+        if (empty($user->getFichesEnregistrees())) {
             return $this->redirectToRoute('afficher_fiche', ['id' => $fiche->getId()]);
         } else {
            
             $em = $this->getDoctrine()->getManager();
 
-            $user->setSuivis($fiche);
+            $user->addFichesEnregistree($fiche);
 
             $em->persist($user);
             $em->flush();

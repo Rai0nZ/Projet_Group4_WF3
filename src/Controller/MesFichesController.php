@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Fiches;
-use App\Entity\Suivi;
 use App\Form\CreerFicheType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,7 @@ class MesFichesController extends AbstractController
      */
     public function voirMesFiches(): Response
     {
-
+        
         if ($this->isGranted('ROLE_ADMIN')) 
         {
             $user = $this->getUser();
@@ -30,28 +29,19 @@ class MesFichesController extends AbstractController
             return $this->render('mes_fiches/index.html.twig', [
                 'fiches' => $fiches
             ]);
+        }else{
+            $user = $this->getUser();
+
+            $repository = $this->getDoctrine()->getRepository(Fiches::class);
+            $fiches = $repository->findBy([
+                'utilisateurs_enregistrees' => $user
+            ]);
+
+            return $this->render('mes_fiches/index.html.twig', [
+                'fiches' => $fiches
+            ]);
         }
     }
-
-    // /**
-    //  * @Route("/mes-fiches", name="mes_fiches")
-    //  */
-    // public function voirMesFichesSuivis(): Response
-    // {
-    //     if ($this->isGranted('ROLE_USER')) 
-    //     {
-    //         $user = $this->getUser();
-
-    //         $repository = $this->getDoctrine()->getRepository(Fiches::class);
-    //         $fiches = $repository->findBy([
-    //             'users_suivis' => $user
-    //         ]);
-
-    //         return $this->render('mes_fiches/index.html.twig', [
-    //             'fiches' => $fiches
-    //         ]);
-    //     }
-    // }
 
 
 

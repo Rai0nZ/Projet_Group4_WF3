@@ -62,11 +62,6 @@ class Fiches
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="follow")
-     */
-    private $follow_id;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="fiches_prof")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -78,15 +73,13 @@ class Fiches
     private $votes;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="suivis")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="fiches_enregistrees")
      */
-    private $users_suivis;
+    private $utilisateurs_enregistrees;
 
     public function __construct()
     {
-        $this->follow_id = new ArrayCollection();
-        $this->votes = new ArrayCollection();
-        $this->users_suivis = new ArrayCollection();
+        $this->utilisateurs_enregistrees = new ArrayCollection();
     }
 
 
@@ -191,33 +184,6 @@ class Fiches
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getFollowId(): Collection
-    {
-        return $this->follow_id;
-    }
-
-    public function addFollowId(User $followId): self
-    {
-        if (!$this->follow_id->contains($followId)) {
-            $this->follow_id[] = $followId;
-            $followId->addFollow($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFollowId(User $followId): self
-    {
-        if ($this->follow_id->removeElement($followId)) {
-            $followId->removeFollow($this);
-        }
-
-        return $this;
-    }
-
     public function getAuteur(): ?User
     {
         return $this->auteur;
@@ -263,28 +229,25 @@ class Fiches
     /**
      * @return Collection|User[]
      */
-    public function getUsersSuivis(): Collection
+    public function getUtilisateursEnregistrees(): Collection
     {
-        return $this->users_suivis;
+        return $this->utilisateurs_enregistrees;
     }
 
-    public function addUsersSuivi(User $usersSuivi): self
+    public function addUtilisateursEnregistree(User $utilisateursEnregistree): self
     {
-        if (!$this->users_suivis->contains($usersSuivi)) {
-            $this->users_suivis[] = $usersSuivi;
-            $usersSuivi->setSuivis($this);
+        if (!$this->utilisateurs_enregistrees->contains($utilisateursEnregistree)) {
+            $this->utilisateurs_enregistrees[] = $utilisateursEnregistree;
+            $utilisateursEnregistree->addFichesEnregistree($this);
         }
 
         return $this;
     }
 
-    public function removeUsersSuivi(User $usersSuivi): self
+    public function removeUtilisateursEnregistree(User $utilisateursEnregistree): self
     {
-        if ($this->users_suivis->removeElement($usersSuivi)) {
-            // set the owning side to null (unless already changed)
-            if ($usersSuivi->getSuivis() === $this) {
-                $usersSuivi->setSuivis(null);
-            }
+        if ($this->utilisateurs_enregistrees->removeElement($utilisateursEnregistree)) {
+            $utilisateursEnregistree->removeFichesEnregistree($this);
         }
 
         return $this;
