@@ -62,19 +62,24 @@ class Fiches
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="follow")
-     */
-    private $follow_id;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="fiches_prof")
      * @ORM\JoinColumn(nullable=true)
      */
     private $auteur;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="fiche", orphanRemoval=true)
+     */
+    private $votes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="fiches_enregistrees")
+     */
+    private $utilisateurs_enregistrees;
+
     public function __construct()
     {
-        $this->follow_id = new ArrayCollection();
+        $this->utilisateurs_enregistrees = new ArrayCollection();
     }
 
 
@@ -179,33 +184,6 @@ class Fiches
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getFollowId(): Collection
-    {
-        return $this->follow_id;
-    }
-
-    public function addFollowId(User $followId): self
-    {
-        if (!$this->follow_id->contains($followId)) {
-            $this->follow_id[] = $followId;
-            $followId->addFollow($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFollowId(User $followId): self
-    {
-        if ($this->follow_id->removeElement($followId)) {
-            $followId->removeFollow($this);
-        }
-
-        return $this;
-    }
-
     public function getAuteur(): ?User
     {
         return $this->auteur;
@@ -214,6 +192,63 @@ class Fiches
     public function setAuteur(?User $auteur = null): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setFiche($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getFiche() === $this) {
+                $vote->setFiche(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUtilisateursEnregistrees(): Collection
+    {
+        return $this->utilisateurs_enregistrees;
+    }
+
+    public function addUtilisateursEnregistree(User $utilisateursEnregistree): self
+    {
+        if (!$this->utilisateurs_enregistrees->contains($utilisateursEnregistree)) {
+            $this->utilisateurs_enregistrees[] = $utilisateursEnregistree;
+            $utilisateursEnregistree->addFichesEnregistree($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateursEnregistree(User $utilisateursEnregistree): self
+    {
+        if ($this->utilisateurs_enregistrees->removeElement($utilisateursEnregistree)) {
+            $utilisateursEnregistree->removeFichesEnregistree($this);
+        }
 
         return $this;
     }

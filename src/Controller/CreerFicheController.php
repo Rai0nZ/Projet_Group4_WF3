@@ -16,7 +16,7 @@ class CreerFicheController extends AbstractController {
     /**
      * @Route("/creer-fiche", name="creer_fiche")
      */
-    public function index(Request $r): Response
+    public function creerFiche(Request $r): Response
     {
 
         $fiche = new Fiches();
@@ -37,8 +37,9 @@ class CreerFicheController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
         $em->persist($fiche);
         $em->flush();
-        
-        return new Response('Fiches Creer! son ID =' . $fiche->getId());
+
+
+        return $this->redirect('/afficher-fiche/' . $fiche->getId());
 
     }
     

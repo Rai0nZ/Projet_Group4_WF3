@@ -3,11 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use Doctrine\DBAL\Types\DateType as TypesDateType;
+use PhpParser\Node\NullableType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,41 +42,44 @@ class AuthentificationController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->redirectToRoute('homepage');
     }
 
     /**
      * @Route("/logout", name="app_logout")
      */
     public function logout()
-    {}
+    {
+    }
 
     /**
      * @Route("/Inscription", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder) {
+    public function register(Request $request, UserPasswordEncoderInterface $encoder)
+    {
 
         $form = $this->createFormBuilder()
 
-        ->add('nom', TextType::class, [
-            'label' => 'Nom',
-            'constraints' => [
-                new NotBlank(),
-            ]
-        ])
-        ->add('prenom', TextType::class, [
-            'label' => 'Prenom',
-            'constraints' => [
-                new NotBlank(),
-            ]
-        ])
-        // Date de naissance constraint a voir avec jordan =============================
-        ->add('date_de_naissance', DateType::class, [
-            'label' => 'Date de naissance',
-            'constraints' => [
-                new NotBlank(),
-            ]
-        ])
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                'label' => 'Prenom',
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
+            // Date de naissance constraint a voir avec jordan =============================
+            ->add('date_de_naissance',DateType::class, [
+                'label' => 'Date de naissance',
+                'years' => range(2021,1900),
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
@@ -100,9 +110,11 @@ class AuthentificationController extends AbstractController
             //         ])
             //     ]
             // ])
-            ->add('numen', IntegerType::class,[
-                'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant'
-                ])
+            ->add('numen', IntegerType::class, [
+                'label' => 'Veuillez indiquer votre NUMEN en tant que membre du corps enseignant',
+                'required'=>false,
+                'empty_data'=> null
+            ])
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer un compte'
@@ -113,13 +125,12 @@ class AuthentificationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             $user = new User();
-            
+
             $formData = $form->getData();
 
-            $encodedPassword = $encoder->encodePassword($user, $formData['password']);
-            
+            $encodedPassword = $encoder->encodePassword($user,$formData['password']);
+
             $user->setPassword($encodedPassword);
             $user->setPseudo($formData['pseudo']);
             $user->setEmail($formData['email']);
@@ -127,6 +138,11 @@ class AuthentificationController extends AbstractController
             $user->setNom($formData['nom']);
             $user->setPrenom($formData['prenom']);
             $user->setDateDeNaissance($formData['date_de_naissance']);
+
+
+            if (!empty($user->getNumen())) {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -139,5 +155,4 @@ class AuthentificationController extends AbstractController
             ]);
         }
     }
-
 }

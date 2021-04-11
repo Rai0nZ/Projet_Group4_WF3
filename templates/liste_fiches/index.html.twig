@@ -1,25 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Fiches| {{ parent() }}{% endblock %}
-{% block style %}<link rel="stylesheet" href="{{asset('css/Liste_Fiches/styles.css')}}">{% endblock %}
-{% block body %}
-<main class"container">
-<h2>Liste Des Fiches</h2>
-
-<div class="container Fiches">
-    {% for f in fiches %}
-        <div style="display: inline-block; width: 30%;">
-            <div class="container">
-                <h3>{{f.Discipline}}</h3>
-                <h3>{{f.niveau}}</h3>
-                 <h4>{{f.nom}}</h4>
-                 <a href=""
-            </div>
-        </div>
-    {% else %}
-        <p>Il n'y a aucune fiches à afficher.</p>
-    {% endfor %}
-    </main>
-</div>
-
+{% block title %}Liste des Fiches|
+	{{ parent() }}
 {% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{{asset('css/Liste_Fiches/styles.css')}}">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block body %}
+	<main class"container">
+		<br>
+		<h2>Liste des fiches</h2>
+
+		<div class="container Fiches">
+			<table id="myTable">
+				<thead class="thead-muted">
+					<tr>
+						<th>Matière</th>
+						<th>Classe</th>
+						<th>Chapitre</th>
+						<th>Date</th>
+						<th>Professeur</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				{% for f in fiches %}
+					<div style="container">
+						<tbody>
+							<tr>
+								<td>
+									{{f.Discipline}}
+								</td>
+
+								<td>
+									{{f.niveau}}
+								</td>
+
+							<td>
+								{{f.nom}}
+							</td>
+
+							<td>
+								{{ f.date|date('d/m/Y') }}
+							</td>
+
+							<td>
+								{{ f.getAuteur().getPseudo() }}
+							</td>
+
+							<td>
+								<a href="{{ path( 'afficher_fiche', {'id': f.id} )}}" title="Voir cet fiche" target="_blank">
+									<button class="">Afficher</button>
+								</a>
+							</td>
+					</tr>
+
+
+				{% else %}
+					<tr>Il n'y a aucun article à afficher.</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+	</div>
+</main>{% endblock %}

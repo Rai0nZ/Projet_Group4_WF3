@@ -23,16 +23,15 @@
                     align-items: center;
 }
 
-.slogan{
-    font-size: 1.5em;
+/* .slogan{
+    font-size: 1em;
     font-style: oblique;
-}
+} */
 
 .zoneDeConnexion{
     margin-right: 1em;
     margin-left: 1em;
 }
-
 
 a .header{
     text-decoration: none;
@@ -48,6 +47,7 @@ a .header{
     border: none;
     height: 1.8em;
     margin-top: 0.1em;
+    display: flex;
 }
 
 .buttonConnexion:hover{

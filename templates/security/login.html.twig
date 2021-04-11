@@ -1,17 +1,18 @@
-{% extends 'base.html.twig' %}
-{% block style %}<link rel="stylesheet" href="{{asset('css/login/style.css')}}">{% endblock  %}
+{# {% extends 'base.html.twig' %} #}
 
-{% block body %}
+
+
+
 <form action="{{ path('app_login') }}" method="post">
 
-    {% if error %}
+    {# {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    {% endif %} #}
 
     {% if not app.user %}
     <section class="connexion container">
         <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+        <input type="email" value="" name="email" id="inputEmail" class="form-control" required autofocus>
         <label for="inputPassword">Mot de passe</label>
         <input type="password" name="password" id="inputPassword" class="form-control" required>
 
@@ -35,12 +36,13 @@
         {# Ici on met le menu Nav une fois connecter en tant que prof et utilisateurs #}
         {% if app.user %}
             <div class="mb-3">
-                Bonjour {{ app.user.pseudo }} <a href="{{ path('app_logout') }}"><hr>Deconnection</a>
+                Bonjour {{ app.user.pseudo }} <a href="{{ path('app_logout') }}"><hr>Déconnexion</a>
             </div>
         {% endif %}
         
     </section>
 
-    
+
 </form>
-{% endblock %}
+
+

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace personnel{% endblock %}
+
+{% block body %}
+<h1 class="mb-5 box ml-3 box mt-5 box">Information personnelles</h1>
+
+
+<h4 class="mb-2 box ml-5 box">Informations générales</h4>
+
+<table class="table mb-4 box ml-5 box w-50">
+    <tbody>
+        <tr>
+            <th scope="col">Nom</th>
+            <td scope="col">{{profil.nom}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Prénom</th>
+            <td scope="col">{{profil.prenom}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Pseudo</th>
+            <td scope="col">{{profil.pseudo}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Adresse e-mail</th>
+            <td scope="col">{{profil.email}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Date de naissance</th>
+            <td scope="col">{{ profil.getDateDeNaissance()|date('d-m-Y')}}</td>
+        </tr>
+
+        <tr>
+            <th scope="col">Pseudo</th>
+            <td scope="col">{{profil.pseudo}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Mot de passe</th>
+            <td scope="col">************</td>
+        </tr>
+        {% if is_granted('ROLE_ADMIN') %}
+        <tr>
+            <th scope="col">Numero NUMEN</th>
+            <td scope="col">**************</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+        <a href="{{ path('modifier_profil') }}" title="Modifier votre profil" class="btn btn-primary ml-5">Modifier profil</a>
+
+
+{% endblock %}

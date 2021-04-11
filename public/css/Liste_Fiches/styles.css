@@ -5,22 +5,31 @@ main {
 }
 main h2 {
   text-align: center;
+  margin: 1.5rem;
 }
 
 .Fiches {
-  background-color: #2d9cdb;
+  background-color: #e9ecef;
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  border: black 4px solid;
-  margin: 1rem;
-}
-.Fiches p:hover {
-  color: beige;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .Fiches h4 {
-  color: white;
+  color: #F2994A;
+}
+
+button {
+  background-color: #2d9cdb;
+  font-weight: bold;
+  border-radius: 0.5em;
+  margin-top: 0.1em;
+}
+
+table {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

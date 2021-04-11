@@ -57,24 +57,29 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $numen;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Fiches::class, inversedBy="follow_id")
-     */
-    private $follow;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Fiches::class, mappedBy="fiches_prof_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Fiches::class, mappedBy="auteur", orphanRemoval=true)
      */
     private $fiches_prof;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Vote::class, mappedBy="utilisateur", cascade={"persist", "remove"})
+     */
+    private $votes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Fiches::class, inversedBy="utilisateurs_enregistrees")
+     */
+    private $fiches_enregistrees;
+
     public function __construct()
     {
-        $this->follow = new ArrayCollection();
         $this->fiches_prof = new ArrayCollection();
+        $this->fiches_enregistrees = new ArrayCollection();
     }
     
 
@@ -212,33 +217,9 @@ class User implements UserInterface
         return $this->numen;
     }
 
-    public function setNumen(int $numen): self
+    public function setNumen(?int $numen): self
     {
         $this->numen = $numen;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Fiches[]
-     */
-    public function getFollow(): Collection
-    {
-        return $this->follow;
-    }
-
-    public function addFollow(Fiches $follow): self
-    {
-        if (!$this->follow->contains($follow)) {
-            $this->follow[] = $follow;
-        }
-
-        return $this;
-    }
-
-    public function removeFollow(Fiches $follow): self
-    {
-        $this->follow->removeElement($follow);
 
         return $this;
     }
@@ -269,6 +250,52 @@ class User implements UserInterface
                 $fichesProf->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVotes(): ?Vote
+    {
+        return $this->votes;
+    }
+
+    public function setVotes(?Vote $votes): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($votes === null && $this->votes !== null) {
+            $this->votes->setUtilisateur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($votes !== null && $votes->getUtilisateur() !== $this) {
+            $votes->setUtilisateur($this);
+        }
+
+        $this->votes = $votes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fiches[]
+     */
+    public function getFichesEnregistrees(): Collection
+    {
+        return $this->fiches_enregistrees;
+    }
+
+    public function addFichesEnregistree(Fiches $fichesEnregistree): self
+    {
+        if (!$this->fiches_enregistrees->contains($fichesEnregistree)) {
+            $this->fiches_enregistrees[] = $fichesEnregistree;
+        }
+
+        return $this;
+    }
+
+    public function removeFichesEnregistree(Fiches $fichesEnregistree): self
+    {
+        $this->fiches_enregistrees->removeElement($fichesEnregistree);
 
         return $this;
     }

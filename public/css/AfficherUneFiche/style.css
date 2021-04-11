@@ -1,0 +1,15 @@
+.ficheType{
+    width: 40em; 
+    height: 40em;
+    background-color: rgba(233,236,239,255);
+    margin-left: 3.5em;
+    margin-top: 1.6em;
+    padding: 1em;
+    font-size: 0.8em;
+}
+.hello
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

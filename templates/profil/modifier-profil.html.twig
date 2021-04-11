@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer votre fiche ! {% endblock %}
+{% block title %}Modifier votre profil ! {% endblock %}
 
 {% block body %}
     <div class="container m5-box mt-5 mb-5 w-75">
-        {{ form( form, { 'action': path('creer_fiche') } ) }}
+        {{ form( form, { 'action': path('modifier_profil') } ) }}
     </div>
 {% endblock %}
