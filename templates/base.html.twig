@@ -48,6 +48,7 @@
 					<li>
 						<a href="{{ path('homepage') }}">Accueil</a>
 					</li>
+					{% if app.user %}
 					<li>
 						<a href="{{ path('mon-profil') }}">Profil</a>
 					</li>
@@ -57,6 +58,7 @@
 					<li>
 						<a href="{{ path('liste_fiches') }}">Toutes les fiches</a>
 					</li>
+					{% endif %}
 				</ul>
 			</nav>
 		{% endif %}

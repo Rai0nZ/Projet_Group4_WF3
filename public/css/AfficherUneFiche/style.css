@@ -7,3 +7,9 @@
     padding: 1em;
     font-size: 0.8em;
 }
+.hello
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

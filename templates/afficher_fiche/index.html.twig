@@ -21,7 +21,7 @@
 		{% endif %}
 
 
-		<section class="d-flex flex-column">
+		<section class="d-flex flex-column hello">
 			<h2 class="text-center mt-3 mb-3">Fiche
 				{{fiche.Discipline}}
 				-
@@ -36,7 +36,7 @@
 					{{fiche.votes|length}}
 				</p>
 				{% else %}
-			<a href="{{ path('', {'id':fiche.id}) }}">
+			<a href="{{ path('follow', {'id':fiche.id}) }}">
 			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
 			<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
 			</svg></a>
