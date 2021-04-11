@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Fiches;
+use App\Entity\Suivi;
 use App\Form\CreerFicheType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,33 +18,39 @@ class MesFichesController extends AbstractController
     public function voirMesFiches(): Response
     {
 
-        $user = $this->getUser();
+        if ($this->isGranted('ROLE_ADMIN')) 
+        {
+            $user = $this->getUser();
 
-        $repository = $this->getDoctrine()->getRepository(Fiches::class);
-        $fiches = $repository->findBy([
-            'auteur' => $user
-        ]);
+            $repository = $this->getDoctrine()->getRepository(Fiches::class);
+            $fiches = $repository->findBy([
+                'auteur' => $user
+            ]);
 
-        return $this->render('mes_fiches/index.html.twig', [
-            'fiches' => $fiches
-        ]);
+            return $this->render('mes_fiches/index.html.twig', [
+                'fiches' => $fiches
+            ]);
+        }
     }
 
-    /**
-     * @Route("/mes-fiches-eleve", name="mes_fiches")
-     */
-    // public function voirMesFichesEnregistrées(): Response
+    // /**
+    //  * @Route("/mes-fiches", name="mes_fiches")
+    //  */
+    // public function voirMesFichesSuivis(): Response
     // {
-    //     $user = $this->getUser();
+    //     if ($this->isGranted('ROLE_USER')) 
+    //     {
+    //         $user = $this->getUser();
 
-    //     $repository = $this->getDoctrine()->getRepository(Fiches::class);
-    //     $fiches = $repository->findBy([
-    //         'follow_id' => $user
-    //     ]);
+    //         $repository = $this->getDoctrine()->getRepository(Fiches::class);
+    //         $fiches = $repository->findBy([
+    //             'users_suivis' => $user
+    //         ]);
 
-    //     return $this->render('mes_fiches/index.html.twig', [
-    //         'fiches' => $fiches
-    //     ]);
+    //         return $this->render('mes_fiches/index.html.twig', [
+    //             'fiches' => $fiches
+    //         ]);
+    //     }
     // }
 
 

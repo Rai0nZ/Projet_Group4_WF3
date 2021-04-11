@@ -77,10 +77,16 @@ class Fiches
      */
     private $votes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="suivis")
+     */
+    private $users_suivis;
+
     public function __construct()
     {
         $this->follow_id = new ArrayCollection();
         $this->votes = new ArrayCollection();
+        $this->users_suivis = new ArrayCollection();
     }
 
 
@@ -248,6 +254,36 @@ class Fiches
             // set the owning side to null (unless already changed)
             if ($vote->getFiche() === $this) {
                 $vote->setFiche(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsersSuivis(): Collection
+    {
+        return $this->users_suivis;
+    }
+
+    public function addUsersSuivi(User $usersSuivi): self
+    {
+        if (!$this->users_suivis->contains($usersSuivi)) {
+            $this->users_suivis[] = $usersSuivi;
+            $usersSuivi->setSuivis($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersSuivi(User $usersSuivi): self
+    {
+        if ($this->users_suivis->removeElement($usersSuivi)) {
+            // set the owning side to null (unless already changed)
+            if ($usersSuivi->getSuivis() === $this) {
+                $usersSuivi->setSuivis(null);
             }
         }
 

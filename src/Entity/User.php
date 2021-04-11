@@ -76,6 +76,11 @@ class User implements UserInterface
      */
     private $votes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Fiches::class, inversedBy="users_suivis")
+     */
+    private $suivis;
+
     public function __construct()
     {
         $this->follow = new ArrayCollection();
@@ -296,6 +301,18 @@ class User implements UserInterface
         }
 
         $this->votes = $votes;
+
+        return $this;
+    }
+
+    public function getSuivis(): ?Fiches
+    {
+        return $this->suivis;
+    }
+
+    public function setSuivis(?Fiches $suivis): self
+    {
+        $this->suivis = $suivis;
 
         return $this;
     }
